@@ -4,9 +4,12 @@ var router = express.Router();
 var quizController = require('../controllers/quiz_controller');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz' });
 });
+
+//autoload
+router.param('quizID',quizController.load);
 
 //definicion de rutas /quizes
 router.get('/quizes', quizController.index);
