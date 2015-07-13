@@ -4,9 +4,9 @@ var router = express.Router();
 var quizController = require('../controllers/quiz_controller');
 
 /* GET home page. */
-/*router.get('/', function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('index', { title: 'Quiz' });
-});*/
+});
 
 //definicion de rutas /quizes
 router.get('/quizes', quizController.index);
