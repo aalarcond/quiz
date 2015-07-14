@@ -16,11 +16,23 @@ exports.load = function (req, res, next, quizId){
 
 
 //GET Quizes
-exports.index = function (req, res){
-	models.Quiz.findAll().then(
-		function(quizes){
-		res.render('quizes/index',{quizes:quizes});
-	}).catch(function(error){next(error);})
+exports.index = function(req, res) {
+if (req.query.search) {
+	var criterio = ('%' + req.query.search + '%').replace(/ /g, '%');
+	models.Quiz.findAll({
+	where: ["pregunta like ?", criterio],
+		order: 'pregunta ASC'
+	}).then(function(quizes) {
+		res.render('quizes/index', {quizes: quizes, errors: []});
+		}
+	).catch(function(error) { next(error);})
+}
+else {
+	models.Quiz.findAll().then(function(quizes) {
+		res.render('quizes/index', {quizes: quizes, errors: []});
+		}
+	).catch(function(error) { next(error);})
+}
 };
 
 //GET /quizes/:id
