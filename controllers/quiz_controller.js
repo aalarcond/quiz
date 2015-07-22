@@ -62,7 +62,7 @@ exports.new = function(req, res){
 exports.create = function(req, res){
 	var quiz = models.Quiz.build( req.body.quiz );
 
-	var errors = quiz.validate();//ya qe el objeto errors no tiene then(
+	var errors = quiz.validate();
 	if (errors)
 	{
 		var i=0; 
@@ -75,3 +75,32 @@ exports.create = function(req, res){
 		.then( function(){ res.redirect('/quizes')}) ;
 		}
 	};
+
+	//GET /quizes/:id/edit
+exports.edit = function(req, res){
+	var quiz = req.quiz;
+
+	res.render('quizes/edit', {quiz: quiz, errors: []});
+};
+
+	//PUT /quizes/:id
+exports.update = function(req, res){
+	req.quiz.pregunta = req.body.quiz.pregunta;
+	req.quiz.respuesta = req.body.quiz.respuesta;
+
+	var errors = req.quiz.validate();
+	if (errors)
+	{
+		var i=0;
+		var errores = new Array();
+
+		for (var prop in errors) errores[i++] = {message: errors[prop]};
+			res-render('quizes/edit',{quiz: quiz, errors: errores});
+	}
+
+	else{
+		req.quiz.save( {fields: ["pregunta", "respuesta"]})
+		.then( function(){ res.redirect('/quizes');});
+	}
+
+};
