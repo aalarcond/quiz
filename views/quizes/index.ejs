@@ -4,6 +4,17 @@
 	<input type="submit" value="Enviar">
 </form>
 
+<form method="get" action="/quizes">
+<select name="filtro">
+  <option value="" selected></option>
+  <option value="humanidades">Humanidades</option>
+  <option value="ocio">Ocio</option>
+  <option value="ciencia">Ciencia</option>
+  <option value="tecnologia">Tecnología</option>
+ </select>
+ <input type="submit" value="Enviar">
+</form>
+
 <center>
 <table>
 
@@ -12,7 +23,6 @@
      <td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
 
      <td>[<%= quizes[i].tema%>]</td>
-     <td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].tema %></a></td>
      
 	 <td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>
 	 <td>

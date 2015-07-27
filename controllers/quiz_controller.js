@@ -27,6 +27,18 @@ if (req.query.search) {
 		}
 	).catch(function(error) { next(error);})
 }
+else if(req.query.filtro){
+	var criterio = ('%' + req.query.filtro + '%').replace(/ /g, '%');
+
+	models.Quiz.findAll({
+	where: ["tema like ?", criterio],
+		order: 'pregunta ASC'
+	}).then(function(quizes) {
+		res.render('quizes/index', {quizes: quizes, errors: []});
+		}
+	).catch(function(error) { next(error);})
+
+}
 else {
 	models.Quiz.findAll().then(function(quizes) {
 		res.render('quizes/index', {quizes: quizes, errors: []});
