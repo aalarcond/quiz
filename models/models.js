@@ -30,8 +30,7 @@ var quiz_path = path.join(__dirname,'quiz');
 var Quiz = sequelize.import(quiz_path);
 
 //Importar la definicion de la tabla Quiz en comment.js
-var comment_path = path.join(__dirname,'comment');
-var Comment = sequelize.import(comment_path);
+var Comment = sequelize.import(path.join(__dirname, 'comment'));
 
 Comment.belongsTo(Quiz);
 Quiz.hasMany(Comment);
